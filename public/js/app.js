@@ -25,6 +25,8 @@ const I18N = {
     size: 'Groesse',
     date: 'Datum',
     dateLocale: 'de-DE',
+    slideshowSpeed: 'Slideshow-Geschwindigkeit',
+    seconds: 'Sek.',
   },
   en: {
     appName: 'Pixflow',
@@ -47,6 +49,8 @@ const I18N = {
     size: 'Size',
     date: 'Date',
     dateLocale: 'en-US',
+    slideshowSpeed: 'Slideshow speed',
+    seconds: 'sec',
   }
 };
 
@@ -450,6 +454,19 @@ function closeViewer() {
 
 // ── Slideshow ────────────────────────────────────────────────────────────────
 
+const SLIDESHOW_SPEEDS = [2, 3, 5, 8, 10, 15, 20];
+let slideshowSpeedIndex = parseInt(localStorage.getItem('slideshowSpeed') || '2', 10);
+
+function getSlideshowInterval() {
+  return (SLIDESHOW_SPEEDS[slideshowSpeedIndex] || 5) * 1000;
+}
+
+function setSlideshowSpeed(index) {
+  slideshowSpeedIndex = index;
+  localStorage.setItem('slideshowSpeed', index);
+  renderSettings();
+}
+
 function toggleSlideshow() {
   if (slideshowActive) stopSlideshow();
   else startSlideshow();
@@ -472,7 +489,13 @@ function stopSlideshow() {
 function advanceSlideshow() {
   if (!slideshowActive) return;
   slideshowTimer = setTimeout(() => {
-    viewerIndex = (viewerIndex + 1) % photos.length;
+    // Naechstes Bild finden (Videos ueberspringen)
+    let next = viewerIndex;
+    for (let i = 0; i < photos.length; i++) {
+      next = (next + 1) % photos.length;
+      if (photos[next].type !== 'video') break;
+    }
+    viewerIndex = next;
     const slides = $('viewer-slides');
     const slide = slides.children[viewerIndex];
     if (slide) {
@@ -483,7 +506,7 @@ function advanceSlideshow() {
     updateViewerCounter();
     preloadAdjacent();
     advanceSlideshow();
-  }, 5000);
+  }, getSlideshowInterval());
 }
 
 // ── Settings ─────────────────────────────────────────────────────────────────
@@ -520,6 +543,18 @@ function renderSettings() {
   `).join('');
 
   html += `<button class="btn-add" onclick="settingSources.push({name:'',path:'',icon:'folder'});renderSettings()">${t('addSource')}</button>`;
+
+  // Slideshow speed
+  const currentSpeed = SLIDESHOW_SPEEDS[slideshowSpeedIndex] || 5;
+  html += `<div class="setting-section">
+    <div class="setting-label">${t('slideshowSpeed')}</div>
+    <div class="speed-selector">
+      ${SLIDESHOW_SPEEDS.map((s, i) =>
+        `<button class="speed-btn${i === slideshowSpeedIndex ? ' active' : ''}" onclick="setSlideshowSpeed(${i})">${s}${t('seconds')}</button>`
+      ).join('')}
+    </div>
+  </div>`;
+
   html += `<button class="btn-save" onclick="saveSources()">${t('save')}</button>`;
   $('settings-body').innerHTML = html;
 }
