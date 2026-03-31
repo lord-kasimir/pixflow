@@ -13,7 +13,7 @@
   <Category>MediaApp:Photos</Category>
   <WebUI>http://[IP]:[PORT:3100]/</WebUI>
   <TemplateURL/>
-  <Icon></Icon>
+  <Icon>https://raw.githubusercontent.com/lord-kasimir/pixflow/main/public/icons/icon-512.png</Icon>
   <ExtraParams>--memory=512m</ExtraParams>
   <PostArgs/>
   <CPUset/>
