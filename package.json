@@ -1,0 +1,14 @@
+{
+  "name": "pixflow",
+  "version": "1.0.0",
+  "description": "Self-hosted photo/video gallery PWA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "sharp": "^0.33.0",
+    "chokidar": "^3.6.0"
+  }
+}

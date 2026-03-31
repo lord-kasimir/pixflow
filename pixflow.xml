@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>pixflow</Name>
+  <Repository>pixflow</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview>Self-hosted photo/video/GIF gallery PWA. Optimized for iPhone, runs on any browser. Configurable folder sources, automatic thumbnails, fullscreen viewer with swipe gestures, slideshow, dark theme.</Overview>
+  <Category>MediaApp:Photos</Category>
+  <WebUI>http://[IP]:[PORT:3100]/</WebUI>
+  <TemplateURL/>
+  <Icon></Icon>
+  <ExtraParams>--memory=512m</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="WebUI Port" Target="3000" Default="3100" Mode="tcp" Description="Port for the web interface" Type="Port" Display="always" Required="true" Mask="false">3100</Config>
+  <Config Name="Photos" Target="/data/photos" Default="/mnt/user/photos" Mode="ro" Description="Path to your photos on the server" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/photos</Config>
+  <Config Name="Videos" Target="/data/videos" Default="" Mode="ro" Description="Optional path to videos (leave empty if not needed)" Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="Media" Target="/data/media" Default="" Mode="ro" Description="Optional additional media folder (leave empty if not needed)" Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="Cache" Target="/app/cache" Default="/mnt/user/appdata/pixflow/cache" Mode="rw" Description="Storage for generated thumbnails" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/pixflow/cache</Config>
+  <Config Name="Config" Target="/app/config" Default="/mnt/user/appdata/pixflow/config" Mode="rw" Description="Storage for configuration files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/pixflow/config</Config>
+  <Config Name="Auto Sources" Target="AUTO_SOURCES" Default="true" Mode="" Description="Automatically detect mounted /data folders as sources (true/false)." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+</Container>

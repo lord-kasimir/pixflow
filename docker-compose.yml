@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  pixflow:
+    build: .
+    container_name: pixflow
+    restart: unless-stopped
+    mem_limit: 512m
+    ports:
+      - "3100:3000"
+    volumes:
+      - /path/to/photos:/data/photos:ro
+      # - /path/to/videos:/data/videos:ro
+      - pixflow-cache:/app/cache
+      - pixflow-config:/app/config
+
+volumes:
+  pixflow-cache:
+  pixflow-config:
