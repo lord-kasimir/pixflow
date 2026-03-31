@@ -52,6 +52,24 @@ const I18N = {
 
 const t = (key) => I18N[LANG][key] || I18N.de[key] || key;
 
+// ── Grid Size ────────────────────────────────────────────────────────────────
+
+const GRID_STEPS = [2, 3, 4, 5, 6, 8, 10];
+let gridSizeIndex = parseInt(localStorage.getItem('gridSize') || '1', 10);
+
+function applyGridSize() {
+  const cols = GRID_STEPS[gridSizeIndex] || 3;
+  document.documentElement.style.setProperty('--grid-cols', cols);
+}
+
+function changeGridSize(dir) {
+  gridSizeIndex = Math.max(0, Math.min(GRID_STEPS.length - 1, gridSizeIndex + dir));
+  localStorage.setItem('gridSize', gridSizeIndex);
+  applyGridSize();
+}
+
+applyGridSize();
+
 // ── State ─────────────────────────────────────────────────────────────────────
 let currentPath = null;
 let navStack = [];

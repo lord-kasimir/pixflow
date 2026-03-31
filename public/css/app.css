@@ -38,6 +38,18 @@ header h1 {
   cursor: pointer; border-radius: 8px; display: flex; align-items: center;
 }
 .hdr-btn:active { opacity: 0.5; }
+.hdr-right { display: flex; align-items: center; gap: 2px; }
+.grid-sizer {
+  display: flex; align-items: center; gap: 0;
+}
+.grid-sizer button {
+  background: none; border: none; color: var(--text-dim);
+  width: 32px; height: 32px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; font-size: 18px; font-weight: 700;
+  transition: color 0.15s;
+}
+.grid-sizer button:active { color: var(--accent); }
 
 /* --- Main Content --- */
 main {
@@ -73,21 +85,11 @@ main {
 /* --- Album-Grid --- */
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(var(--grid-cols, 2), 1fr);
   gap: 8px; padding: 8px 12px;
 }
-@media (min-width: 600px) {
-  .album-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 900px) {
-  .album-grid { grid-template-columns: repeat(4, 1fr); }
-}
-@media (min-width: 1200px) {
-  .album-grid { grid-template-columns: repeat(5, 1fr); }
-}
-@media (min-width: 1600px) {
-  .album-grid { grid-template-columns: repeat(6, 1fr); }
-}
+
+/* --- Foto-Grid (ebenfalls per Variable) --- */
 .album-card {
   border-radius: 12px; overflow: hidden; cursor: pointer;
   background: var(--card); border: 1px solid var(--border);
@@ -107,7 +109,7 @@ main {
 /* --- Foto-Grid --- */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--grid-cols, 3), 1fr);
   gap: 2px; padding: 0 2px;
 }
 .photo-cell {
