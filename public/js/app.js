@@ -314,6 +314,7 @@ function openViewer(index) {
   };
 
   setupPinchZoom(slides);
+  updateSpeedButton();
   scheduleUiHide();
 }
 
@@ -464,7 +465,16 @@ function getSlideshowInterval() {
 function setSlideshowSpeed(index) {
   slideshowSpeedIndex = index;
   localStorage.setItem('slideshowSpeed', index);
-  renderSettings();
+  updateSpeedButton();
+}
+
+function cycleSlideshowSpeed() {
+  setSlideshowSpeed((slideshowSpeedIndex + 1) % SLIDESHOW_SPEEDS.length);
+}
+
+function updateSpeedButton() {
+  const btn = $('btn-speed');
+  if (btn) btn.textContent = SLIDESHOW_SPEEDS[slideshowSpeedIndex] + 's';
 }
 
 function toggleSlideshow() {
@@ -543,18 +553,6 @@ function renderSettings() {
   `).join('');
 
   html += `<button class="btn-add" onclick="settingSources.push({name:'',path:'',icon:'folder'});renderSettings()">${t('addSource')}</button>`;
-
-  // Slideshow speed
-  const currentSpeed = SLIDESHOW_SPEEDS[slideshowSpeedIndex] || 5;
-  html += `<div class="setting-section">
-    <div class="setting-label">${t('slideshowSpeed')}</div>
-    <div class="speed-selector">
-      ${SLIDESHOW_SPEEDS.map((s, i) =>
-        `<button class="speed-btn${i === slideshowSpeedIndex ? ' active' : ''}" onclick="setSlideshowSpeed(${i})">${s}${t('seconds')}</button>`
-      ).join('')}
-    </div>
-  </div>`;
-
   html += `<button class="btn-save" onclick="saveSources()">${t('save')}</button>`;
   $('settings-body').innerHTML = html;
 }

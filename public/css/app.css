@@ -234,6 +234,11 @@ main {
   cursor: pointer; pointer-events: auto;
 }
 .viewer-actions button.active { color: var(--accent); }
+.btn-speed {
+  font-size: 13px !important; font-weight: 700;
+  width: 44px !important; height: 44px !important;
+  font-family: -apple-system, system-ui, sans-serif;
+}
 .viewer-actions.ui-hidden { opacity: 0; pointer-events: none; }
 .viewer-actions { transition: opacity 0.3s; }
 
